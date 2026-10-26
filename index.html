@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Listen, Connect, Act: Rubric-Aligned Graphic Organizer</title>
+<style>
+:root{--t:#2C2C2B;--t2:#7D7A75;--bg:#fff;--s:#F9F8F7;--s2:#F0EFED;--b:#E6E5E3;--a:#2783DE;--as:#E5F2FC;--g:#46A171;--gs:#E8F1EC;--o:#D5803B;--os:#FBEBDE}
+@media (prefers-color-scheme:dark){:root{--t:#fff;--t2:rgba(255,255,255,.65);--bg:#191919;--s:#202020;--s2:#383836;--b:rgba(255,255,255,.2);--a:#5E9FE8;--as:rgba(94,159,232,.12);--g:#72BC8F;--gs:rgba(114,188,143,.12);--o:#DE9255;--os:rgba(222,146,85,.12)}}
+*{box-sizing:border-box}body{margin:0;font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;color:var(--t);background:var(--bg)}
+.wrap{max-width:960px;margin:0 auto;padding:24px}
+header{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;margin-bottom:16px}
+h1{font-size:24px;line-height:1.25;margin:0 0 4px}.sub{color:var(--t2);font-size:14px;margin:0}
+.actions{display:flex;gap:8px}
+.export-btn{display:inline-flex;align-items:center;text-decoration:none}button,.export-btn{font:inherit;font-size:14px;min-height:44px;padding:0 16px;border-radius:8px;border:1px solid var(--b);background:var(--bg);color:var(--t);cursor:pointer}
+button:hover,.export-btn:hover{background:var(--s2)}button.primary{background:var(--a);border-color:var(--a);color:#fff}
+ .export-btn:focus-visible,button:focus-visible,textarea:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--a);outline-offset:2px}
+nav{display:flex;gap:4px;overflow-x:auto;border-bottom:1px solid var(--b);margin-bottom:24px}
+nav button{border:none;border-bottom:2px solid transparent;border-radius:0;background:none;white-space:nowrap;color:var(--t2);padding:0 12px}
+nav button[aria-selected=true]{color:var(--t);border-bottom-color:var(--a);font-weight:600}
+nav .n{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--s2);font-size:12px;margin-right:6px}
+nav button.done .n{background:var(--g);color:#fff}
+.panel{display:none}.panel.on{display:block}
+.crit{background:var(--as);border-radius:8px;padding:12px 16px;margin-bottom:24px;font-size:14px}
+.crit b{display:block;font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--a);margin-bottom:4px}
+h2{font-size:22px;margin:0 0 8px}.lead{color:var(--t2);margin:0 0 24px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.f{display:flex;flex-direction:column;gap:6px;margin-bottom:16px}.f.full{grid-column:1/-1}
+label{font-weight:600;font-size:14px}.hint{font-size:14px;color:var(--t2);margin-top:-4px}
+textarea,input[type=text],select{font:inherit;font-size:15px;color:var(--t);background:var(--s);border:1px solid var(--b);border-radius:8px;padding:10px 12px;width:100%}
+textarea{min-height:84px;resize:vertical}
+.checks{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px;margin-bottom:16px}
+.checks label{font-weight:400;display:flex;gap:8px;align-items:center;background:var(--s);border:1px solid var(--b);border-radius:8px;padding:10px 12px;min-height:44px;cursor:pointer}
+.checks input{width:18px;height:18px;accent-color:var(--a)}
+table{width:100%;border-collapse:collapse;font-size:14px;margin-bottom:16px}
+th,td{border:1px solid var(--b);padding:8px;text-align:left;vertical-align:top}th{background:var(--s2);font-weight:600}
+td textarea,td input{min-height:44px;padding:6px 8px;font-size:14px;background:var(--bg)}
+.tablewrap{overflow-x:auto}
+.self{border:1px solid var(--b);border-radius:8px;padding:16px;margin-top:8px}
+.self p{margin:0 0 12px;font-weight:600;font-size:14px}
+.lv{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.lv label{font-weight:400;font-size:14px;border:1px solid var(--b);border-radius:8px;padding:12px;cursor:pointer;display:flex;gap:8px;align-items:flex-start;line-height:1.4}
+.lv label span b{display:block;margin-bottom:2px}
+.lv input{margin-top:3px;accent-color:var(--a)}
+.lv label:has(input:checked){border-color:var(--a);background:var(--as)}
+.foot{display:flex;justify-content:space-between;margin-top:24px;gap:8px}
+.saved{font-size:14px;color:var(--t2);align-self:center}
+.sum{display:grid;gap:8px}.sum div{display:flex;justify-content:space-between;align-items:center;gap:12px;background:var(--s);border:1px solid var(--b);border-radius:8px;padding:12px 16px;font-size:15px}
+.tag{font-size:13px;padding:2px 10px;border-radius:999px;background:var(--s2);white-space:nowrap}
+.tag.Emerging{background:var(--os);color:var(--o)}.tag.Maturing{background:var(--as);color:var(--a)}.tag.Transforming{background:var(--gs);color:var(--g)}
+@media (max-width:640px){.wrap{padding:16px}.grid,.lv{grid-template-columns:1fr}header{flex-direction:column}}
+body.print-ready .panel{display:block;margin-bottom:32px}body.print-ready nav,body.print-ready .foot{display:none}
+.print-value{display:none}
+@page{size:letter portrait;margin:.4in}
+@media print{:root{--t:#2C2C2B;--t2:#595754;--bg:#fff;--s:#F9F8F7;--s2:#F0EFED;--b:#ccc;--a:#2783DE;--as:#E5F2FC}nav,.actions,.foot,#export-help{display:none!important}.wrap{max-width:none;padding:0}.panel{display:block!important;break-before:page;margin-bottom:24px}.panel:first-of-type{break-before:auto}.grid{display:block}.self,.checks{break-inside:avoid}.f{break-inside:auto}.print-value{display:block;white-space:pre-wrap;overflow-wrap:anywhere;border:1px solid #ccc;border-radius:8px;padding:10px 12px;min-height:44px;font-size:15px}textarea{display:none;min-height:0;resize:none;overflow:visible;border:1px solid #ccc}.tablewrap{overflow:visible}*{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+/* NCCSC fieldwork organizer style, shared with the companion artifacts. */
+:root{--t:#16171B;--t2:#625B53;--bg:#F6F1E9;--s:#FCFAF7;--s2:#F0EAE2;--b:#D8D1C8;--a:#F37023;--as:#FFF3E8;--g:#357452;--gs:#E8F1EC;--o:#974719;--os:#FFF3E8}
+body{font-family:"Public Sans",Arial,Helvetica,sans-serif;background:var(--bg);color:var(--t)}
+.toolbar{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:center;gap:24px;padding:12px 20px;min-height:72px;background:#16171B;color:#fff;border-bottom:3px solid #F37023}
+.toolbar .actions{flex-shrink:0}.toolbar #export-help{margin:0;color:#fff;font-size:14px;max-width:580px}
+.export-btn{background:#F37023;border:0;color:#16171B;font-weight:800;text-transform:uppercase;letter-spacing:.025em;padding:12px 20px;min-height:48px;text-decoration:underline}
+.export-btn:hover{background:#F58A4A}.export-btn:focus-visible{outline:3px solid #fff}.toolbar button{background:transparent;color:#fff;border-color:#8C8377}
+.wrap{max-width:1080px;margin:28px auto;padding:42px 46px 50px;background:#fff;border:1px solid var(--b);border-radius:12px;box-shadow:0 1px 2px rgba(0,0,0,.05),0 4px 12px rgba(0,0,0,.04)}
+header{display:block;padding-bottom:32px;margin-bottom:32px;border-bottom:5px solid #F37023}
+.eyebrow{color:#A3420A;font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px}
+h1,h2,h3{font-family:"Archivo Black","Arial Black",Arial,sans-serif;font-weight:800}h1{font-size:40px;line-height:1.08;letter-spacing:-.025em;margin:0 0 12px}header .sub{font-size:16px;color:var(--t2)}
+nav{display:none}.panel,.panel.on{display:block;margin:0 0 40px}.panel h2{padding-left:14px;border-left:5px solid #F37023;font-size:24px;line-height:1.2}.panel .lead{font-size:16px;margin-bottom:24px}
+.crit{border:1px solid #F3B78D;border-left:5px solid #F37023;border-radius:8px;background:#FFF8F2;color:#40362F;padding:14px 16px;margin-bottom:24px}.crit b{color:#A3420A;font-size:12px}
+.grid{gap:16px;grid-template-columns:repeat(2,minmax(0,1fr))}.f{padding:16px;background:var(--s);border:1px solid var(--b);border-top:4px solid #16171B;border-radius:8px;margin-bottom:16px}.f.full{border-top-color:#F37023}
+label{font-size:14px;font-weight:800}.hint{color:var(--t2)}textarea,input[type=text],select{background:#fff;border-color:#C9BFB4;border-radius:6px;font:15px/1.45 Arial,Helvetica,sans-serif;color:#16171B}
+.checks{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.checks label{background:#fff;border-color:var(--b);font-weight:400}
+.tablewrap{border:1px solid var(--b);border-radius:8px;background:#fff;margin-bottom:24px}table{margin:0;min-width:660px}th{background:#16171B;color:#fff;font-size:12px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;padding:12px}td{padding:10px;font-size:14px}td:first-child{font-weight:700;background:var(--s)}td input{border:0;border-bottom:1px solid var(--b);border-radius:0}
+.self{background:var(--s);border-top:4px solid #16171B;padding:20px;margin-top:16px}.self p{font-size:16px}.lv label{background:#fff;min-height:44px}.lv label:nth-child(1){border-top:4px solid #8C8377}.lv label:nth-child(2){border-top:4px solid #F37023}.lv label:nth-child(3){border-top:4px solid #16171B}.lv label:has(input:checked){background:#FFF3E8;border-color:#C75513}
+.sum div{background:var(--s)}.tag.Emerging{color:#8B451D}.tag.Maturing{color:#9A410C}.tag.Transforming{color:#296445}
+.foot{padding-top:18px;border-top:4px solid #F37023}.foot #prev,.foot #next{display:none}.saved{color:var(--t2)}
+@media(max-width:760px){.toolbar{flex-direction:column;align-items:stretch;gap:8px;padding:12px 16px}.toolbar .actions{justify-content:space-between}.toolbar #export-help{font-size:14px}.wrap{width:100%;margin:0;padding:28px 20px;border:0;border-radius:0;box-shadow:none}h1{font-size:32px}.grid,.lv,.checks{grid-template-columns:1fr}.f{padding:14px}.panel{margin-bottom:32px}}
+@media print{body{background:#fff}.toolbar{display:none!important}.wrap{max-width:none;width:100%;margin:0;padding:0;border:0;border-radius:0;box-shadow:none}header{margin-bottom:24px;padding-bottom:20px}h1{font-size:28px}.grid{display:block}.panel,.panel.on{display:block!important;break-before:page;margin-bottom:24px}.panel:first-of-type{break-before:auto}.f{break-inside:auto;border-top-width:2px;padding:10px;background:#fff}.tablewrap{overflow:visible}table{min-width:0;table-layout:fixed}td,th{overflow-wrap:anywhere}.print-value{font-size:14px}.self{break-inside:auto}.lv{grid-template-columns:1fr}.lv label{break-inside:avoid}.foot{display:none!important}}
+</style></head><body><div class="wrap">
+<header><div class="eyebrow">NCCSC · Microcredential #2</div><h1>Listen, Connect, Act</h1><p class="sub">Rubric-aligned fieldwork organizer · Understand the Community · Competency 1</p></header>
+<nav role="tablist" id="tabs"></nav>
+
+<section class="panel" data-t="Reach &amp; Access">
+<div class="crit"><b>Rubric: Reach &amp; Access</b>Transforming — You center people who are often left out and work with them to remove barriers so they can fully take part.</div>
+<h2>Whose voice do you need most?</h2><p class="lead">Name the voices usually missing, then plan the conditions that make participation real.</p>
+<div class="grid">
+<div class="f"><label for="r1">Population(s) you will center</label><textarea id="r1" placeholder="e.g., Spanish-speaking grandparents raising grandchildren"></textarea></div>
+<div class="f"><label for="r2">Why they are usually missing</label><textarea id="r2"></textarea></div>
+<div class="f full"><label for="r3">Who helped you design outreach (trusted messengers, partners, participants)</label><textarea id="r3"></textarea></div>
+</div>
+<label>Access supports arranged</label>
+<div class="checks"><label><input type="checkbox" id="c1">Language access / interpretation</label><label><input type="checkbox" id="c2">Transportation</label><label><input type="checkbox" id="c3">Childcare</label><label><input type="checkbox" id="c4">Time that fits their lives</label><label><input type="checkbox" id="c5">Trusted, accessible place</label><label><input type="checkbox" id="c6">Food / hospitality</label></div>
+<div class="tablewrap"><table><thead><tr><th>Session</th><th>Date · place · format</th><th>Supports provided</th><th>What I'd do differently</th></tr></thead><tbody>
+<tr><td>Listening session 1</td><td><input type="text" id="s1a"></td><td><input type="text" id="s1b"></td><td><input type="text" id="s1c"></td></tr>
+<tr><td>Listening session 2</td><td><input type="text" id="s2a"></td><td><input type="text" id="s2b"></td><td><input type="text" id="s2c"></td></tr>
+</tbody></table></div>
+</section>
+
+<section class="panel" data-t="Listening &amp; Ethics">
+<div class="crit"><b>Rubric: Listening, Consent &amp; Documentation</b>Transforming — You preserve participants' words and differing viewpoints, protect privacy, confirm your understanding with them, and document without surveilling.</div>
+<h2>Listen, capture, confirm</h2><p class="lead">Record what you heard in participants' own words. De-identify everything.</p>
+<div class="grid">
+<div class="f"><label for="l1">Consent &amp; privacy plan</label><div class="hint">What you'll record, what you won't, how it's stored</div><textarea id="l1"></textarea></div>
+<div class="f"><label for="l2">How participants will confirm your summary</label><textarea id="l2"></textarea></div>
+<div class="f"><label for="l3">Lived experience of the school</label><textarea id="l3" placeholder="&ldquo;Direct quotes where permitted&hellip;&rdquo;"></textarea></div>
+<div class="f"><label for="l4">Barriers to participation</label><textarea id="l4"></textarea></div>
+<div class="f"><label for="l5">Assets the community already mobilizes</label><textarea id="l5"></textarea></div>
+<div class="f"><label for="l6">Aspirations for their children</label><textarea id="l6"></textarea></div>
+<div class="f full"><label for="l7">Tensions &amp; differing viewpoints — including what challenges the school's assumptions</label><textarea id="l7"></textarea></div>
+</div>
+</section>
+
+<section class="panel" data-t="Sustainable Practice">
+<div class="crit"><b>Rubric: Sustainability &amp; Design</b>Transforming — You design a practice realistic enough to sustain all year that deliberately reaches the voices usually missing.</div>
+<h2>Turn listening into a habit</h2><p class="lead">Design an ongoing practice that keeps these relationships alive all year.</p>
+<div class="grid">
+<div class="f"><label for="p1">Practice form</label><select id="p1"><option value="">Choose one…</option><option>Monthly community walk</option><option>Standing coffee at the FRC</option><option>Faith-leader breakfast</option><option>Youth advisory check-ins</option><option>Home visits with consenting families</option><option>Follow-up listening circles</option><option>Other</option></select></div>
+<div class="f"><label for="p2">Cadence</label><input type="text" id="p2" placeholder="e.g., 2nd Tuesday, monthly, Sept–June"></div>
+<div class="f"><label for="p3">Who you'll engage (keep the missing voices in)</label><textarea id="p3"></textarea></div>
+<div class="f"><label for="p4">What makes this sustainable for you — honestly</label><textarea id="p4"></textarea></div>
+</div>
+<div class="tablewrap"><table><thead><tr><th>Quarter</th><th>Focus / who</th><th>Access supports</th></tr></thead><tbody>
+<tr><td>Fall</td><td><input type="text" id="q1a"></td><td><input type="text" id="q1b"></td></tr>
+<tr><td>Winter</td><td><input type="text" id="q2a"></td><td><input type="text" id="q2b"></td></tr>
+<tr><td>Spring</td><td><input type="text" id="q3a"></td><td><input type="text" id="q3b"></td></tr>
+<tr><td>Summer</td><td><input type="text" id="q4a"></td><td><input type="text" id="q4b"></td></tr>
+</tbody></table></div>
+</section>
+
+<section class="panel" data-t="Integration &amp; Pilot">
+<div class="crit"><b>Rubric: Integration &amp; Pilot</b>Transforming — You pilot 3+ weeks, document what changed, close the loop with &ldquo;You said / We will,&rdquo; and show how insights flow into SAB and ANA work.</div>
+<h2>Close the loop and pilot</h2><p class="lead">Show participants what happens next, then test your practice for at least three weeks.</p>
+<div class="tablewrap"><table><thead><tr><th>You said…</th><th>We will…</th><th>Flows into (SAB / ANA / other)</th><th>By when</th></tr></thead><tbody>
+<tr><td><input type="text" id="y1a"></td><td><input type="text" id="y1b"></td><td><input type="text" id="y1c"></td><td><input type="text" id="y1d"></td></tr>
+<tr><td><input type="text" id="y2a"></td><td><input type="text" id="y2b"></td><td><input type="text" id="y2c"></td><td><input type="text" id="y2d"></td></tr>
+<tr><td><input type="text" id="y3a"></td><td><input type="text" id="y3b"></td><td><input type="text" id="y3c"></td><td><input type="text" id="y3d"></td></tr>
+</tbody></table></div>
+<div class="tablewrap"><table><thead><tr><th>Pilot week</th><th>What I did</th><th>Who I reached</th><th>What changed</th></tr></thead><tbody>
+<tr><td>Week 1</td><td><input type="text" id="w1a"></td><td><input type="text" id="w1b"></td><td><input type="text" id="w1c"></td></tr>
+<tr><td>Week 2</td><td><input type="text" id="w2a"></td><td><input type="text" id="w2b"></td><td><input type="text" id="w2c"></td></tr>
+<tr><td>Week 3</td><td><input type="text" id="w3a"></td><td><input type="text" id="w3b"></td><td><input type="text" id="w3c"></td></tr>
+</tbody></table></div>
+<div class="f"><label for="i1">How and when participants will hear back</label><textarea id="i1"></textarea></div>
+</section>
+
+<section class="panel" data-t="Reflection">
+<div class="crit"><b>Rubric: Reflection &amp; Proximity</b>Transforming — You examine your assumptions and connection to the community, stay open to challenging feedback, and commit to specific changes with clear next steps.</div>
+<h2>What changed in you</h2><p class="lead">Be honest. This is where proximity is built.</p>
+<div class="grid">
+<div class="f"><label for="f1">An assumption I held</label><textarea id="f1"></textarea></div>
+<div class="f"><label for="f2">What I heard that challenged it</label><textarea id="f2"></textarea></div>
+<div class="f"><label for="f3">My proximity to this community — honestly</label><textarea id="f3"></textarea></div>
+<div class="f"><label for="f4">Feedback that was hard to hear</label><textarea id="f4"></textarea></div>
+<div class="f full"><label for="f5">Specific changes I commit to, with next steps</label><textarea id="f5"></textarea></div>
+</div>
+</section>
+
+<section class="panel" data-t="Self-Check">
+<h2>Rubric self-check</h2><p class="lead">Choose the level your evidence supports today. Anything below Transforming shows your next move.</p>
+<div id="selfs"></div>
+
+</section>
+
+<div class="foot"><button type="button" id="prev">Back</button><span class="saved" id="saved">Saves automatically in this browser</span><button type="button" class="primary" id="next">Next</button></div>
+</div>
+<script>
+const R=[
+["Reach & Access","You mostly hear from people already involved and offer few supports.","You reach a group whose voice is often missing and offer basic supports.","You center people often left out and work with them to remove barriers."],
+["Listening, Consent & Documentation","General takeaways; limited attention to consent, privacy, or follow-up; documentation may feel like surveillance.","You record with permission, check your summary with participants, and name how you'll document with consent.","You preserve participants' words and viewpoints, protect privacy, confirm understanding, and document without surveilling."],
+["Sustainability & Design","A one-time event or vague aspiration.","A clear practice with cadence and who you'll engage.","A practice realistic enough to sustain all year that deliberately reaches missing voices."],
+["Integration & Pilot","Insights stay in a notebook; little or no pilot.","You pilot the practice, explain how the school will respond, and connect insights to some of the work.","You pilot 3+ weeks, document what changed, share “You said / We will” updates, and show flow into SAB and ANA."],
+["Reflection & Proximity","You focus on how sessions went or describe learning broadly.","You name an assumption that changed and one specific change to practice.","You examine assumptions and proximity, stay open to challenge, and commit to specific changes with next steps."]];
+const L=["Emerging","Maturing","Transforming"],K="nccsc-mc2-listening-practice";
+const selfs=document.getElementById('selfs');
+R.forEach((r,i)=>{const d=document.createElement('div');d.className='self';d.innerHTML=`<p>${r[0]}</p><div class="lv" role="radiogroup" aria-label="${r[0]}">${L.map((l,j)=>`<label><input type="radio" name="lv${i}" value="${l}"><span><b>${l}</b>${r[j+1]}</span></label>`).join('')}</div>`;selfs.appendChild(d)});
+const P=[...document.querySelectorAll('.panel')],T=document.getElementById('tabs');let cur=0;
+P.forEach((p,i)=>{const b=document.createElement('button');b.type='button';b.setAttribute('role','tab');b.innerHTML=`<span class="n">${i+1}</span>${p.dataset.t}`;b.onclick=()=>show(i);T.appendChild(b)});
+function show(i){cur=i;P.forEach((p,j)=>p.classList.toggle('on',j===i));[...T.children].forEach((b,j)=>b.setAttribute('aria-selected',j===i));document.getElementById('prev').style.visibility=i?'visible':'hidden';document.getElementById('next').style.visibility=i<P.length-1?'visible':'hidden';if(i===P.length-1)summ()}
+document.getElementById('prev').onclick=()=>show(Math.max(0,cur-1));document.getElementById('next').onclick=()=>{show(Math.min(P.length-1,cur+1));window.scrollTo(0,0)};
+const els=()=>[...document.querySelectorAll('textarea,input,select')];
+function save(){const o={};els().forEach(e=>{const k=e.id||e.name+':'+e.value;if(e.type==='checkbox'||e.type==='radio')o[k]=e.checked;else o[k]=e.value});try{localStorage.setItem(K,JSON.stringify(o))}catch(_){}prog();const s=document.getElementById('saved');s.textContent='Saved';clearTimeout(save.t);save.t=setTimeout(()=>s.textContent='Saves automatically in this browser',1200)}
+function load(){let o={};try{o=JSON.parse(localStorage.getItem(K)||'{}')}catch(_){}els().forEach(e=>{const k=e.id||e.name+':'+e.value;if(!(k in o))return;if(e.type==='checkbox'||e.type==='radio')e.checked=o[k];else e.value=o[k]})}
+function prog(){P.forEach((p,i)=>{const f=[...p.querySelectorAll('textarea,input[type=text],select')];const n=f.filter(e=>e.value.trim()).length;const done=i===P.length-1?document.querySelectorAll('.lv input:checked').length===R.length:f.length&&n/f.length>=.5;T.children[i].classList.toggle('done',!!done)})}
+function summ(){}
+document.addEventListener('input',()=>{save();if(cur===P.length-1)summ()});document.addEventListener('change',()=>{save();if(cur===P.length-1)summ()});
+function encodeFormState(){return btoa(unescape(encodeURIComponent(JSON.stringify(els().map(e=>({value:e.value,checked:e.checked}))))))}
+function restoreFormState(){if(!location.hash.startsWith('#state='))return;try{const state=JSON.parse(decodeURIComponent(escape(atob(decodeURIComponent(location.hash.slice(7))))));els().forEach((e,i)=>{if(!state[i])return;if(e.type==='checkbox'||e.type==='radio')e.checked=!!state[i].checked;else e.value=state[i].value||''});history.replaceState(null,'',location.pathname+location.search)}catch(error){console.error('Could not restore organizer responses',error)}}
+function syncForPrint(){summ();document.querySelectorAll('textarea').forEach(e=>{e.textContent=e.value;let v=e.nextElementSibling;if(!v||!v.classList.contains('print-value')){v=document.createElement('div');v.className='print-value';e.after(v)}v.textContent=e.value;e.style.height='auto';e.style.height=Math.max(e.scrollHeight+4,84)+'px'});document.querySelectorAll('input').forEach(e=>{if(e.type==='checkbox'||e.type==='radio')e.toggleAttribute('checked',e.checked);else e.setAttribute('value',e.value)});document.querySelectorAll('select').forEach(e=>Array.from(e.options).forEach(o=>o.toggleAttribute('selected',o.value===e.value)))}
+window.addEventListener('beforeprint',syncForPrint);
+load();restoreFormState();prog();show(0);
+</script></body></html>
